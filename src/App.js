@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Landing from "./components/Landing";
-import Leaderboard from "./components/Leaderboard";
-import Settings from "./components/Settings";
-import SwipeLearn from "./components/Swipe-Learn";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import Portfolio from "./components/Portfolio";
+import Landing from "./pages/Landing";
+import Leaderboard from "./pages/Leaderboard";
+import Settings from "./pages/Settings";
+import SwipeLearn from "./pages/Swipe-Learn";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Portfolio from "./pages/Portfolio";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "./AuthContext";
 
