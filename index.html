@@ -3,17 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
+    <title>BullRun</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- LANDING PAGE -->
+    <div class="grid-background"></div>
+    <nav class="navbar">
+        <a href="#" class="logo">BullRun</a>
+        <div class="nav-links">
+            <a href="#swipe">Swipe</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#leaderboard">Leaderboard</a>
+            <a href="#settings">Settings</a>
+        </div>
+        <a href="#" class="button">Sign Up/Log In</a>
+    </nav>
+    <section class="hero">
+        <h1>Compete Against your Friends <br> to Build the Best Portfolio</h1>
+        <p>Start Swiping to Build Generational Wealth</p>
+        <a href="#" class="button">Build Portfolio</a>
+    </section>
+
+
+<!-- SWIPE SECTION -->
+    <div class="swipe-container">
+        <!-- Navigation Lines -->
+        <div class="nav-lines">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      
+        <!-- Stock Profile Card -->
+        <div class="stock-card">
+          <!-- Slide 1: Basic Info -->
+          <div class="slide active">
+            <img src="../images/nvdapic.webp" alt="Nvidia Logo" class="stock-logo">
+            <h2 class="stock-name">Nvidia</h2>
+            <p class="button">$500.00</p>
+            <p class="stock-description">Nvidia is a leading manufacturer of GPUs and AI hardware.</p>
+                <div class="highlight-stats">
+                  <div class="highlight-stat">
+                    <span class="value">500%</span>
+                    <span class="label">Returns</span>
+                  </div>
+                  <div class="highlight-stat">
+                    <span class="value">500Bn</span>
+                    <span class="label">Marketcap</span>
+                  </div>
+                  <div class="highlight-stat">
+                    <span class="value">80M</span>
+                    <span class="label">ARR</span>
+                  </div>
+                  <div class="highlight-stat">
+                    <span class="value">100+</span>
+                    <span class="label">P/E</span>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+        <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button class="reject-btn">❌</button>
+            <button class="like-btn">💚 </button>
+          </div>
+        </div>
+      
+
+
+        
+          <!-- Slide 2: Chart and Technical Info -->
+          <div class="slide">
+            <img src="nvidia-chart.png" alt="Nvidia Chart" class="stock-chart">
+            <p class="stock-market-cap">Market Cap: $500B</p>
+            <p class="stock-pe">P/E: 50</p>
+            <p class="stock-vol">Vol: 10M</p>
+          </div>
+      
+          <!-- Slide 3: Advanced Info -->
+          <div class="slide">
+            <p class="quarterly-returns">Quarterly Returns: +10%</p>
+            <p class="earnings">Earnings: $5B</p>
+            <p class="profit">Profit: $2B</p>
+            <p class="revenue">Revenue: $10B</p>
+          </div>
+        </div>
+
+    
+
+<!-- LEADERBOARD SECTION -->
     <h1>Leaderboard</h1>
-    <h2>Top 10 All-Time</h2>
+    <h2>Top 10 All Time</h2>
     <div class="leaderboard">
         <div class="player">
             <div class="info">
                 <span class="rank">1.</span>
-                <span class="name">Richard</span>
+                <span class="name">Rich Baby Daddy </span>
             </div>
             <div class="roi positive">+25.3%</div>
         </div>
@@ -27,18 +116,15 @@
         <div class="player">
             <div class="info">
                 <span class="rank">3.</span>
-                <span class="name">James</span>
-            </div>
-            <div class="roi negative">-5.2%</div>
-        </div>
-        <div class="player">
-            <div class="info">
-                <span class="rank">4.</span>
                 <span class="name">Brennan</span>
             </div>
-            <div class="roi negative">-1032.2%</div>
+            <div class="roi negative">-1023432.2%</div>
         </div>
         <!-- Add more players here -->
     </div>
+
+
+
+    
 </body>
 </html>
