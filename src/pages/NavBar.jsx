@@ -16,7 +16,7 @@ const NavBar = () => {
                 onMouseLeave={handleLeave}
             >
                 <div className={`nav-items ${isOpen ? "show" : ""}`}>
-                <a href="/portfolio">Portfolio</a>
+                <a href="/portfolio">Dashboard</a>
                 <a href="/leaderboard">LeaderBoard</a>
                 <a href="/swipe-learn">Learn</a>
                 <a href="/settings">Settings</a>

@@ -1,19 +1,41 @@
 .stock-chart, .pie-chart {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  width: 100%;
-  border: 1px solid blue;
+  width: 60vh;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
 }
+
+.stock-chart:hover, .pie-chart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.stock-chart::before, .pie-chart::before {
+  content: attr(data-title);
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f7fafc;
+}
+
 
 .charts {
   display: flex;
   justify-content: space-around;
-  border: 1px solid black;
   padding: 10px;
-}
+} 
 
-.content {
+/* .content {
   border: 1px solid pink;
+  height: 10vh;
   width: 100%;
-}
+} */
