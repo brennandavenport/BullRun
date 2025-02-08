@@ -2,7 +2,7 @@
 
 #privacy
 .env
-/pages/constants.js
+/src/pages/constants.js
 
 
 # dependencies
