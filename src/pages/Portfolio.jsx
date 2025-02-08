@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Portfolio.css"; 
 import NewsComponent from "./NewsComponent";
+import NavBar from "./NavBar";
 
 import { useRef, useEffect } from 'react';
 import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Filler } from 'chart.js';
@@ -106,20 +107,7 @@ const Portfolio = () => {
 
   return (
     <div className="portfolio-container">
-      <div
-        className={`sidebar ${isOpen ? "open" : ""}`}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleLeave}
-      >
-        <div className={`nav-items ${isOpen ? "show" : ""}`}>
-          <a href="#leaderboard">LeaderBoard</a>
-          <a href="#learn">Learn</a>
-          <a href="#settings">Settings</a>
-        </div>
-        <div className="sign-out">
-          <a href="#sign-out">Sign out</a>
-        </div>
-      </div>
+      <NavBar></NavBar>
       <div className="content">
         <div className="charts">
             <div className="stock-chart">Performance
