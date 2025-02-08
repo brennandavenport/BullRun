@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ALPHA_VANTAGE_API_KEY from './constants'; // Check for typo in variable name
-import APLHA_VANTAGE_API_KEY from './constants';
+
 
 const NewsComponent = () => {
     const [newsData, setNewsData] = useState(null);
@@ -8,9 +7,8 @@ const NewsComponent = () => {
     const [error, setError] = useState(null);
 
     const getNews = async () => {
-        const apiKey = ALPHA_VANTAGE_API_KEY; // Ensure variable name matches
 
-        const url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&financial_markets&apikey=' + APLHA_VANTAGE_API_KEY;
+        const url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&financial_markets&apikey='
 
         try {
             const response = await fetch(url);
