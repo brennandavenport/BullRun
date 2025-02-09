@@ -27,6 +27,7 @@ body {
 .nav-links {
     display: flex;
     gap: 20px;
+    justify-content: center;
 }
 .nav-links a, .logo {
     color: white;

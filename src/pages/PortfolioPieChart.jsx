@@ -4,44 +4,48 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChartWithCenter = () => {
+const PieChartWithCenter = ({ backendData }) => {
+  // Extract data from backend response
+  const { total_invested, total_current_value, investment_breakdown } = backendData;
+
+  // Generate labels, data, and colors dynamically
+  const labels = investment_breakdown.map(item => item.stock_name);
+  const dataValues = investment_breakdown.map(item => item.total_current_value);
+  const backgroundColors = [
+    '#4285F4', // Blue
+    '#F65314', // Orange
+    '#34A853', // Green
+    '#FBBC05', // Yellow
+    '#EA4335', // Red
+    '#000000', // Black
+    // Add more colors if needed
+  ].slice(0, investment_breakdown.length); // Ensure we have enough colors
+
   const data = {
-    labels: ['Cash', 'Nvidia', 'Apple', 'Bitcoin', 'S&P 500', 'Tesla'],
+    labels: labels,
     datasets: [{
-      data: [1500, 2000, 1000, 1200, 2800, 1500],
-      //change color here
-      backgroundColor: [
-        '#4285F4',
-        '#F65314',
-        '#34A853',
-        '#FBBC05',
-        '#EA4335',
-        '#000000'
-      ],
+      data: dataValues,
+      backgroundColor: backgroundColors,
       borderWidth: 0,
     }]
   };
 
-    // Calculate total
-    const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-
-    // Custom center text plugin
-    const centerTextPlugin = {
+  // Custom center text plugin
+  const centerTextPlugin = {
     id: 'centerText',
     beforeDraw: (chart) => {
-        const { ctx, chartArea: { width, height } } = chart;
-        ctx.save();
-        ctx.font = 'bold 24px Arial';
-        ctx.fillStyle = '#e3e3e3';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('Total', width / 2, height / 2 - 15);
-        ctx.font = '20px Arial';
-        // Format number with commas
-        ctx.fillText(`$${total.toLocaleString('en-US')}`, width / 2, height / 2 + 15);
-        ctx.restore();
+      const { ctx, chartArea: { width, height } } = chart;
+      ctx.save();
+      ctx.font = 'bold 24px Arial';
+      ctx.fillStyle = '#e3e3e3';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Total', width / 2, height / 2 - 15);
+      ctx.font = '20px Arial';
+      ctx.fillText(`$${total_current_value.toLocaleString('en-US')}`, width / 2, height / 2 + 15);
+      ctx.restore();
     }
-    };
+  };
 
   const options = {
     responsive: true,
@@ -61,7 +65,7 @@ const PieChartWithCenter = () => {
           label: (context) => {
             const label = context.label || '';
             const value = context.parsed || 0;
-            const percentage = ((value / total) * 100).toFixed(1) + '%';
+            const percentage = ((value / total_current_value) * 100).toFixed(1) + '%';
             return `${label}: $${value} (${percentage})`;
           }
         }
@@ -86,4 +90,44 @@ const PieChartWithCenter = () => {
   );
 };
 
-export default PieChartWithCenter;
+const PortfolioPieChart = () => {
+  const [backendData, setBackendData] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const userId = localStorage.getItem('user');
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/main/investments/get_portfolio_breakdown/?user_id=${userId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setBackendData(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!backendData) {
+    return <div>No data available</div>;
+  }
+
+  return <PieChartWithCenter backendData={backendData} />;
+};
+
+export default PortfolioPieChart;
