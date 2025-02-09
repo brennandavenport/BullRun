@@ -16,19 +16,29 @@
 .body {
     display: flex;
     justify-content: center;
-    background-color: grey;
+    background-color: #0e1111;
     align-items: center;
     height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -1;
 }
 
 .buttons {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
 }
 
 button {
-    width: 100px;  /* Set equal width and height */
-    height: 100px;
+    width: 70px;  /* Set equal width and height */
+    height: 70px;
     border-radius: 50%;  /* Makes it a perfect circle */
     background-color: white;
     color: white;
@@ -54,3 +64,149 @@ button {
     background-color: #21ce99;
     border-color: #21ce99;
 }
+
+.stocktitle {
+    background-color: #c4ff68;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+
+
+
+
+/* MINE */
+
+.swipe-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Navigation Lines */
+  .nav-lines {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .line {
+    width: 30px;
+    height: 4px;
+    background-color: #ccc;
+  }
+  
+  .line.active {
+    background-color: #000;
+  }
+  
+  /* Stock Card */
+  .stock-card {
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .slide {
+    display: none;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .slide.active {
+    display: block;
+  }
+  
+  .stock-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .stock-name {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #000;
+  }
+  
+  .stock-price {
+    font-size: 20px;
+    color: #c4ff68;
+  ; /* Robinhood green */
+    margin: 10px 0;
+  }
+  
+  .stock-description {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .highlight-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 15px; /* Space between items */
+  }
+  
+  .highlight-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 8px;
+  }
+  
+  .highlight-stat .value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .highlight-stat .label {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+  }
+  
+  .stock-chart {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 10px;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .reject-btn, .like-btn {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .reject-btn:hover {
+    background-color: #ff5a5a;
+    border-color: #ff5a5a;
+  }
+  
+  .like-btn:hover {
+    background-color: #21ce99;
+    border-color: #21ce99;
+  }
