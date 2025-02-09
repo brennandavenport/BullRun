@@ -25,10 +25,10 @@ const Leaderboard = () => {
   }, []); // Empty dependency array ensures this runs only once on mount
 
   return (
-    <div>
+    <div className="grid-background">
       <NavBar />
       <div className="page-content">
-        <h1>Leaderboard</h1>
+        <h1 className="leaderboard-title">Leaderboard</h1>
         <h2>Top 10 All Time</h2>
         <div className="leaderboard">
           {leaderboardData.map((player, index) => (
