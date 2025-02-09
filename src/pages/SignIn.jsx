@@ -7,16 +7,13 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-export default function SignIn() {
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,73 +52,137 @@ export default function SignIn() {
     }
   };
 
-  const handleSignUpClick = () => {
-    // Redirect to the SignUp page
-    navigate("/signup");
-  };
+
 
   return (
     <Box
+      className="signup-container"
       display="flex"
       alignItems="center"
       justifyContent="center"
       minHeight="100vh"
-      bgcolor="background.default"
+      bgcolor="#121212" // Dark background
     >
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+      <Card
+        className="signup-card"
+        sx={{
+          width: 400,
+          p: 3,
+          borderRadius: 2,
+          boxShadow: "0px 4px 10px rgba(0, 255, 127, 0.3)", // Soft green glow
+          backgroundColor: "#1e1e1e", // Slightly lighter dark card
+        }}
       >
-        <Card sx={{ width: 400, p: 3, borderRadius: 2, boxShadow: 3 }}>
-          <CardContent>
-            <Typography variant="h4" align="center" gutterBottom>
-              BullRun
+        <CardContent>
+          <Typography
+            className="signup-title"
+            variant="h4"
+            align="center"
+            gutterBottom
+            sx={{ color: "#c4ff68", fontWeight: "bold" }} // Light green for BullRun
+          >
+            BullRun
+          </Typography>
+          <Typography
+            className="signup-subtitle"
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ color: "#ffffff" }} // White text for contrast
+          >
+            Sign In
+          </Typography>
+          {error && (
+            <Typography
+              className="signup-error"
+              color="error"
+              align="center"
+              sx={{ mb: 2, color: "#ff4c4c" }} // Red error message
+            >
+              {error}
             </Typography>
-            <Typography variant="h5" align="center" gutterBottom>
+          )}
+          <form onSubmit={handleSubmit}>
+            <TextField
+              className="signup-input"
+              fullWidth
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              margin="normal"
+              required
+              sx={{
+                backgroundColor: "#2a2a2a", // Dark input background
+                borderRadius: "8px",
+                "& .MuiInputBase-input": {
+                  color: "white", // White text for input
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#bbbbbb", // Light gray label text
+                },
+              }}
+            />
+            <TextField
+              className="signup-input"
+              fullWidth
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              margin="normal"
+              required
+              sx={{
+                backgroundColor: "#2a2a2a", // Dark input background
+                borderRadius: "8px",
+                "& .MuiInputBase-input": {
+                  color: "white", // White text for input
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#bbbbbb", // Light gray label text
+                },
+              }}
+            />
+            <Button
+              className="signup-button"
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#c4ff68", // Light green button
+                color: "#121212", // Dark text
+                fontWeight: "bold",
+                borderRadius: "8px",
+                height: "50px",
+                "&:hover": {
+                  backgroundColor: "#00cc66", // Slightly darker green on hover
+                },
+              }}
+            >
               Sign In
-            </Typography>
-            {error && (
-              <Typography color="error" align="center" sx={{ mb: 2 }}>
-                {error}
-              </Typography>
-            )}
-            <form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                label="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                margin="normal"
-                required
-              />
-              <TextField
-                fullWidth
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                margin="normal"
-                required
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Button fullWidth variant="outlined" onClick={handleSignUpClick} >
-                Sign Up
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </motion.div>
+            </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              onClick={() => navigate("/signup")} // Direct redirection
+              sx={{
+                height: "50px",
+                color: "#c4ff68", // Light green text
+                borderColor: "#00ff7f", // Light green border
+                "&:hover": {
+                  borderColor: "#00cc66", // Slightly darker green on hover
+                },
+              }}
+            >
+              Sign Up
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </Box>
   );
 }
