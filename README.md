@@ -1,3 +1,29 @@
+# UGAHackathon
+- Include names of team members 
+James Nguyen, Brennan Davenport, Richard Phan, Arjun Sakthi
+
+- Explain purpose of project
+
+
+
+- Tools utilized 
+React.js
+Django
+SQLite
+
+- Problems that your team ran into and how your team overcame them
+Getting data and cleaning it. 
+Creating the doubly nested carasoul
+
+
+
+- Must credit any public frameworks utilized (APIs, etc)
+Marketaux for news
+yahoofinance for stock data
+Chart.js for charts
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
