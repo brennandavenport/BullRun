@@ -1,9 +1,15 @@
 import React from "react"
+import NavBar from "./NavBar";
 
 
 const SwipeLearn = () => {
     return(
-        <h1>Swipe Learn Page</h1>
+        <div className="body">
+            <NavBar></NavBar>
+            <div className="page-content">
+                <h1>Swipe Learn Page</h1>
+            </div>
+        </div>
     )
 }
 

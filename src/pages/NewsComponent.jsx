@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import './NewsComponent.css'
+import apiKey from './constants';
 
 const NewsComponent = () => {
     const [newsData, setNewsData] = useState(null);
@@ -7,27 +8,16 @@ const NewsComponent = () => {
     const [error, setError] = useState(null);
 
     const getNews = async () => {
+        const api = apiKey; // Ensure variable name matches
 
-        const url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&financial_markets&apikey='
+        const url = 'https://api.marketaux.com/v1/news/all?symbols=TSLA,AAPL,SPY,BTC,NVDA&filter_entities=true&language=en&api_token=' + apiKey + 'q'; //remove q later
 
         try {
             const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-
+            if (!response.ok) throw new Error('Failed to fetch data');
+            
             const data = await response.json();
-
-            // Check for API error messages
-            if (data['Error Message']) {
-                throw new Error(data['Error Message']);
-            }
-
-            // Check if 'feed' exists and is an array
-            if (data === null) {
-                throw new Error('Invalid data format: missing feed');
-            }
+            if (data['Error Message']) throw new Error(data['Error Message']);
 
             setNewsData(data);
             setLoading(false);
@@ -35,44 +25,88 @@ const NewsComponent = () => {
             setError(error.message);
             setLoading(false);
         }
-    };
-
-    const createNews = (newsData) => {
-        if (Array.isArray(newsData) && newsData.length > 0) {
-            return newsData.map((item, index) => (
-                <div key={index} className="news-item">
-                    <h3>{item.title}</h3>
-                    <p>{item.summary}</p>
-                    <p><strong>Authors:</strong> {item.authors?.join(", ") || 'N/A'}</p>
-                    <p><strong>Source:</strong> {item.source}</p>
-                    <p><strong>Sentiment:</strong> {item.overall_sentiment_label}</p>
-                    <p><strong>Published:</strong> {new Date(item.time_published).toLocaleString()}</p>
-                    {item.banner_image && <img src={item.banner_image} alt={item.title} />}
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">Read more</a>
-                </div>
-            ));
-        } else {
-            return <pre>{JSON.stringify(newsData, null, 2)}</pre>;
-        }
-    };
-
+    };    
+    
     useEffect(() => {
         getNews();
     }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    const NewsFeed = ({ data }) => {
+        const getSentimentColor = (score) => {
+            if (score > 0.3) return '#d4edda';
+            if (score < -0.3) return '#f8d7da';
+            return '#e2e3e5';
+        };
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+        return (
+            <div className="news-container">
+                {data.map((item) => (
+                    <div key={item.uuid} className="news-card">
+                        <div className="news-image">
+                            <img src={item.image_url} alt={item.title} />
+                        </div>
+                        <div className="news-content">
+                            <div className="news-source">
+                                <span className="source">{item.source}</span>
+                                <span className="published-date">
+                                    {new Date(item.published_at).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric',
+                                    })}
+                                </span>
+                            </div>
+                            <h2 className="news-title">{item.title}</h2>
+                            <p className="news-description">{item.description}</p>
+                            
+                            {item.entities?.length > 0 && (
+                                <div className="entity-tags">
+                                    {item.entities.map((entity, idx) => (
+                                        <span 
+                                            key={idx}
+                                            className="entity-tag"
+                                            style={{ backgroundColor: getSentimentColor(entity.sentiment_score) }}
+                                        >
+                                            {entity.symbol} ({entity.sentiment_score?.toFixed(2)})
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
+                            <div className="news-highlights">
+                                {item.entities?.map((entity, idx) =>
+                                    entity.highlights?.map((highlight, hIdx) => (
+                                        <details key={`${idx}-${hIdx}`} className="highlight">
+                                            <summary>Relevant Excerpt</summary>
+                                            <p dangerouslySetInnerHTML={{ __html: highlight.highlight }} />
+                                            <small>Sentiment: {highlight.sentiment?.toFixed(2)}</small>
+                                        </details>
+                                    ))
+                                )}
+                            </div>
+
+                            <a
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="read-more"
+                            >
+                                Read full article →
+                            </a>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
-        <div>
-            <h2>News Sentiment</h2>
-            {/* {createNews(newsData)} */}
-            <pre>{JSON.stringify(newsData, null, 2)}</pre>
+        <div className="news-wrapper">
+            <h2 className="news-sentiment-title">News Sentiment</h2>
+            {newsData?.data ? <NewsFeed data={newsData.data} /> : <div>No news available</div>}
         </div>
     );
 };
