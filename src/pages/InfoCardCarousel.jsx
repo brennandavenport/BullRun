@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './InfoCardCarousel.css'
 import Card from './Cards';
 
 
-const InfoCardCarousel = () => {
+const InfoCardCarousel = (companyIndex) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-  
-    const textItems = [
-      <Card state="AAPL"></Card>,
-      <Card state="AAPL"></Card>,
-      <Card state="AAPL"></Card>,
-      <Card state="AAPL"></Card>,
-    ];
+      
+    useEffect(() => {
+        setCurrentIndex(0);
+    }, [companyIndex]);
+
+    const textItems = [1, 2, 3].map((slide) => (
+        <Card cardKey={slide} cardIndex={companyIndex} />
+    ));
+      
   
     const nextCard = () => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % textItems.length);
