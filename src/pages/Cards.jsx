@@ -125,7 +125,7 @@ const Card = ( { cardKey, cardIndex }) => {
               {
                 "type": "stats",
                 "data": [
-                  {"image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FSatya_Nadella&psig=AOvVaw3D772TKzGLNJ2FiHr5hlPv&ust=1739177371625000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJiwud2atosDFQAAAAAdAAAAABAE"},
+                  {"image": "https://media.wired.com/photos/5cd03fc84ef5ad318eea3885/master/w_2560%2Cc_limit/microsoft-3590.jpg"},
                   {"value": "15%", "label": "Annual Growth"},
                   {"value": "2.5Trn", "label": "Market Cap"},
                   {"value": "Cloud Computing", "label": "Industry"},
