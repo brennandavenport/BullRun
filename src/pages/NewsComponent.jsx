@@ -10,7 +10,7 @@ const NewsComponent = () => {
     const getNews = async () => {
         const api = apiKey; // Ensure variable name matches
 
-        const url = 'https://api.marketaux.com/v1/news/all?symbols=TSLA,AAPL,SPY,BTC,NVDA&filter_entities=true&language=en&api_token=' + apiKey + "q"; //remove q later
+        const url = 'https://api.marketaux.com/v1/news/all?symbols=TSLA,AAPL,SPY,BTC,NVDA&filter_entities=true&language=en&api_token=' + apiKey + 'q'; //remove q later
 
         try {
             const response = await fetch(url);
