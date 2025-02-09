@@ -37,24 +37,31 @@ const sampleData = generateStockData();
 
 
 const Portfolio = () => {
-  return (
-    <div className="portfolio-container">
-      <NavBar></NavBar>
-      <div className="content">
-        <div className="charts">
-            <div className="stock-chart" data-title="Performance - Past Month">
-              <StockChart data = { sampleData }></StockChart>
-            </div>
-            <div className="pie-chart" data-title="Total Holdings">
-              <PortfolioPieChart></PortfolioPieChart>
-            </div>
+return (
+<div>
+<div class="grid-background"></div>
+  <div class="portfolio-container">
+    <NavBar></NavBar>
+    <div class="portfolio-card">
+      <span class="card-title">Performance - Past Month</span>
+        <div class="graph-placeholder">
+          <StockChart data = {sampleData} ></StockChart>
         </div>
-        <div className="news">
-            <NewsComponent></NewsComponent>
-        </div>
-      </div>
     </div>
+        <div class="portfolio-card">
+        <span class="card-title">Total Holdings</span>
+            <PortfolioPieChart></PortfolioPieChart>
+
+        </div>
+  </div>
+  <div className="new">
+
+  <NewsComponent></NewsComponent>
+  </div>
+</div>
   );
 };
+
+
 
 export default Portfolio;

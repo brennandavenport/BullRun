@@ -11,12 +11,12 @@ const PieChartWithCenter = () => {
       data: [1500, 2000, 1000, 1200, 2800, 1500],
       //change color here
       backgroundColor: [
-        '#a3d9a5',
-        '#87ceeb',
-        '#6c7a89',
-        '#ffb3ba',
-        '#1e90ff',
-        '#FFFF8F'
+        '#4285F4',
+        '#F65314',
+        '#34A853',
+        '#FBBC05',
+        '#EA4335',
+        '#000000'
       ],
       borderWidth: 0,
     }]
@@ -32,7 +32,7 @@ const PieChartWithCenter = () => {
         const { ctx, chartArea: { width, height } } = chart;
         ctx.save();
         ctx.font = 'bold 24px Arial';
-        ctx.fillStyle = '#333';
+        ctx.fillStyle = '#e3e3e3';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('Total', width / 2, height / 2 - 15);
@@ -52,7 +52,8 @@ const PieChartWithCenter = () => {
         position: 'right',
         labels: {
           boxWidth: 20,
-          padding: 15
+          padding: 15,
+          color: 'white'
         }
       },
       tooltip: {
@@ -72,6 +73,7 @@ const PieChartWithCenter = () => {
     <div style={{ 
       position: 'relative', 
       height: '400px', 
+      color: 'white',
       width: '400px',
       margin: '0 auto'
     }}>
