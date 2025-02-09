@@ -391,7 +391,7 @@ const Card = ( { cardKey, cardIndex }) => {
         return (
             <div className="tile-three">
                 <img src={jsonData[cardIndex.companyIndex].data[2].data[2].image} alt="company campus" />
-                <div className="company-info-two">
+                <div className="company-info-three">
                     <h3 className="sharpe-ratio">{jsonData[cardIndex.companyIndex].data[2].data[0].label} {jsonData[cardIndex.companyIndex].data[2].data[0].value}</h3>
                     <h3 className="pe-ratio">{jsonData[cardIndex.companyIndex].data[2].data[1].label} {jsonData[cardIndex.companyIndex].data[2].data[1].value}</h3>
                 </div>

@@ -32,7 +32,7 @@ const SwipeLearn = () => {
             <div className="body">
                 <div className="page-content">
                     <div className="tinder">
-                        <h1>Swipe Learn Page</h1>
+                        <span className="stocktitle">Swipe & Learn Page</span>
                         <InfoCardCarousel companyIndex = {currentIndex}></InfoCardCarousel>
                         <div className="buttons">
                             <button className="dislike" onClick={ nextItem }>❌</button>

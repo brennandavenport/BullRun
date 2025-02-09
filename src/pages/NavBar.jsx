@@ -18,7 +18,7 @@ const NavBar = () => {
                 <div className={`nav-items ${isOpen ? "show" : ""}`}>
                 <a href="/portfolio">Dashboard</a>
                 <a href="/leaderboard">LeaderBoard</a>
-                <a href="/swipe-learn">Learn</a>
+                <a href="/swipe-learn">Swipe & Learn</a>
                 <a href="/settings">Settings</a>
                 </div>
                 <div className="sign-out">
