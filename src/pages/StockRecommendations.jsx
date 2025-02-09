@@ -1,185 +1,117 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const StockRecommendations = () => {
-  // State for user preferences
-  const [userPreferences, setUserPreferences] = useState({
-    risk: "medium",
-    sector: "tech",
-    timeframe: "long",
-    marketCap: "large",
-  });
+  // Retrieve the matched stock data and recommendation score passed via state from SwipeLearn.
+  const location = useLocation();
+  const { stockData, score } = location.state || {};
 
-  // State for stock data
-  const [stock, setStock] = useState({
-    risk: "medium",
-    sector: "tech",
-    volatility: "low",
-    marketCap: "large",
-  });
-
-  // State for the recommendation score
-  const [score, setScore] = useState(null);
-
-  // Function to handle preference changes
-  const handlePreferenceChange = (e) => {
-    const { name, value } = e.target;
-    setUserPreferences((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const stockprice = {
+     "NVDA": 129.84 ,
+     "AAPL": 227.63 ,
+     "SPY": 600.77 ,
+     "MSFT": 409.75 ,
+     "TSLA": 361.62 ,
+     "NIO": 4.24 ,
+     "XOM": 108.89 ,
+     "BLK": 992.04 ,
+     "LLY": 878.31 ,
+     "SHW": 360.57 ,
   };
 
-  // Function to handle stock data changes
-  const handleStockChange = (e) => {
-    const { name, value } = e.target;
-    setStock((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // Local state to store the user-entered quantity.
+  const [quantity, setQuantity] = useState("");
 
-  // Function to calculate the recommendation score
-  const calculateScore = () => {
-    const newScore = recommendStock(userPreferences, stock);
-    setScore(newScore);
+  // Fallback if no stock data is available.
+  if (!stockData || score === undefined) {
+    return (
+      <div className="recommendation">
+        <p>No stock data available. Please return to Swipe Learn.</p>
+      </div>
+    );
+  }
+
+  // Function to handle purchasing the stock.
+  const handleBuyStock = async () => {
+    // Validate the quantity input.
+    if (!quantity || Number(quantity) <= 0) {
+      alert("Please enter a valid quantity.");
+      return;
+    }
+
+    // Since your stockData does not include a price, we use a default price.
+    const defaultPrice = 100; // Adjust as needed.
+    const priceAtPurchase = defaultPrice;
+    const totalAmount = (Number(quantity) * defaultPrice).toFixed(2);
+
+    // Build the investment payload following the Investment JSON format.
+    const investment = {
+      stock_ticker: stockData.symbol,           // Using the symbol property from your stock data.
+      amount_invested: 1000,             // Calculated total amount (as a string).
+      time_bought: "2024-01-04",    // Current time in ISO format.
+      price_at_purchase: stockprice[stockData.symbol], // Price at purchase as string.
+      profile: localStorage.getItem("user"),    // Hard-coded profile id (update as needed).
+      stock: stockData.id,                      // Using the id property from your stock data.
+    };
+
+    try {
+      // Replace the URL with your actual endpoint.
+      const response = await fetch("http://localhost:8000/main/investments/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(investment),
+      });
+      console.log(investment)
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await response.json();
+      alert("Stock purchased successfully!");
+      console.log("Purchase result:", result);
+    } catch (error) {
+      console.error("Error purchasing stock:", error);
+      alert("Failed to purchase stock. Please try again.");
+    }
   };
 
   return (
-    <div className="stock-recommendations">
-      <h1>Stock Recommendation App</h1>
+    <div className="recommendation">
+      <h2>
+        Recommendation:{" "}
+        {score >= 0.7
+          ? "You matched with this stock!"
+          : "You didn't match with this stock :("}
+      </h2>
+      <p>Score: {score.toFixed(2)}</p>
+      
+      {/* Display various stock data properties */}
+      {stockData.symbol && <p>Stock: {stockData.symbol}</p>}
+      {stockData.marketCap && <p>Market Cap: {stockData.marketCap}</p>}
+      {stockData.sector && <p>Sector: {stockData.sector}</p>}
+      {stockData.risk_level && <p>Risk Level: {stockData.risk_level}</p>}
 
-      <div>
-        <h2>User Preferences</h2>
-        <label>
-          Risk:
-          <select name="risk" value={userPreferences.risk} onChange={handlePreferenceChange}>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </label>
-        <label>
-          Sector:
-          <select name="sector" value={userPreferences.sector} onChange={handlePreferenceChange}>
-            <option value="tech">Tech</option>
-            <option value="automotive">Automotive</option>
-            <option value="finance">Finance</option>
-            <option value="materials">Materials</option>
-            <option value="etf">ETF</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="energy">Energy</option>
-          </select>
-        </label>
-        <label>
-          Timeframe:
-          <select name="timeframe" value={userPreferences.timeframe} onChange={handlePreferenceChange}>
-            <option value="short">Short</option>
-            <option value="long">Long</option>
-          </select>
-        </label>
-        <label>
-          Market Cap:
-          <select name="marketCap" value={userPreferences.marketCap} onChange={handlePreferenceChange}>
-            <option value="large">Large</option>
-            <option value="small">Small</option>
-          </select>
-        </label>
-      </div>
-
-      <div>
-        <h2>Stock Details</h2>
-        <label>
-          Risk:
-          <select name="risk" value={stock.risk} onChange={handleStockChange}>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </label>
-        <label>
-          Sector:
-          <select name="sector" value={stock.sector} onChange={handleStockChange}>
-            <option value="tech">Tech</option>
-            <option value="automotive">Automotive</option>
-            <option value="finance">Finance</option>
-          </select>
-        </label>
-        <label>
-          Volatility:
-          <select name="volatility" value={stock.volatility} onChange={handleStockChange}>
-            <option value="low">Low</option>
-            <option value="high">High</option>
-          </select>
-        </label>
-        <label>
-          Market Cap:
-          <select name="marketCap" value={stock.marketCap} onChange={handleStockChange}>
-            <option value="large">Large</option>
-            <option value="small">Small</option>
-          </select>
-        </label>
-      </div>
-
-      <button onClick={calculateScore}>Evaluate Stock</button>
-
-      {score !== null && (
-        <div>
-          <h2>Recommendation Score: {score.toFixed(2)}</h2>
-          {score >= 0.7 ? (
-            <p>This stock is a positive recommendation!</p>
-          ) : (
-            <p>This stock is not recommended.</p>
-          )}
-        </div>
-      )}
+      {/* Input for user to specify quantity */}
+      <label style={{ display: "block", margin: "10px 0" }}>
+        Quantity:
+        <input
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          min="1"
+          style={{ marginLeft: "5px" }}
+        />
+      </label>
+      
+      {/* Button that triggers the POST request to "buy" the stock */}
+      <button onClick={handleBuyStock}>
+        Buy Stock
+      </button>
     </div>
   );
-};
-
-// Stock recommendation algorithm
-const recommendStock = (userPreferences, stock) => {
-  let score = 0;
-
-  // Risk matching
-  if (userPreferences.risk === stock.risk) {
-    score += 0.3;
-  } else if (
-    (userPreferences.risk === "low" && stock.risk === "medium") ||
-    (userPreferences.risk === "medium" && stock.risk === "high") ||
-    (userPreferences.risk === "high" && stock.risk === "medium")
-  ) {
-    score += 0.2;
-  } else {
-    score += 0.1;
-  }
-
-  // Sector matching
-  if (userPreferences.sector === stock.sector) {
-    score += 0.3;
-  } else {
-    score += 0.1;
-  }
-
-  // Timeframe matching (using volatility as a proxy)
-  if (userPreferences.timeframe === "short" && stock.volatility === "high") {
-    score += 0.2;
-  } else if (userPreferences.timeframe === "long" && stock.volatility === "low") {
-    score += 0.2;
-  } else {
-    score += 0.1;
-  }
-
-  // Market cap matching
-  if (userPreferences.marketCap === stock.marketCap) {
-    score += 0.2;
-  } else {
-    score += 0.1;
-  }
-
-  // Ensure the score is between 0 and 1
-  score = Math.min(Math.max(score, 0), 1);
-
-  return score;
 };
 
 export default StockRecommendations;

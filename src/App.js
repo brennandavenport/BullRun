@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/setup" element={<UserSetup />} />
           <Route path="/stocks" element={<StockRecommendations />} />
           <Route path="/chat" element={<Chat />} />
-
+          <Route path="/StockRecommendations" element={<StockRecommendations />} />
           
           {/* Protected Routes */}
           <Route path="/portfolio" element={<ProtectedRoute element={<Portfolio />} />} />
