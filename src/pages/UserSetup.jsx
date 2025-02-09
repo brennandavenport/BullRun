@@ -43,7 +43,7 @@ export default function PortfolioPreferences() {
 
       if (response.ok) {
         // Redirect to the dashboard or home page
-        navigate("/");
+        navigate("/portfolio");
       } else {
         console.error("Failed to save user profile");
       }
