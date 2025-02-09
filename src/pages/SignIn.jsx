@@ -55,6 +55,11 @@ export default function SignIn() {
     }
   };
 
+  const handleSignUpClick = () => {
+    // Redirect to the SignUp page
+    navigate("/signup");
+  };
+
   return (
     <Box
       display="flex"
@@ -110,7 +115,7 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
-              <Button fullWidth variant="outlined">
+              <Button fullWidth variant="outlined" onClick={handleSignUpClick} >
                 Sign Up
               </Button>
             </form>

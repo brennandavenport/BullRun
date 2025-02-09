@@ -1,102 +1,147 @@
 import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  TextField,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-function SignUp() {
+export default function SignUp() {
   // State variables for form fields
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password || !password2) {
+      setError("Email and password are required");
+      return;
+    } else if (password !== password2) {
+      setError("Passwords do not match");
+      return;
+    }
 
-    // For demo purposes, we just console.log the values
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
+    setError("");
+    console.log("Logging in with", { email, password });
+    try {
+      // Send a POST request to your Django backend
+      const response = await fetch("http://localhost:8000/auth/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-    // In a real app, you might send a request to your backend server here:
-    // fetch('/signup', { method: 'POST', body: JSON.stringify({ name, email, password }) })
+      const data = await response.json();
 
-    // Clear form fields after submission (optional)
-    setName('');
-    setEmail('');
-    setPassword('');
+      if (response.ok) {
+        console.log("Access token:", data.data?.tokens?.access);
+        localStorage.setItem("access_token", data.data.tokens.access);
+        localStorage.setItem("refresh_token", data.data.tokens.refresh);
+        localStorage.setItem("user", data.data.id); // Correctly access the user ID
+
+        // Redirect to the home page or dashboard
+        navigate("/");
+      } else {
+        // Handle errors from the backend
+        setError(data.detail || "Invalid credentials, try again");
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
+      setError("An error occurred. Please try again.");
+    }
+
+    navigate("/setup");
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Sign Up</h2>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <div style={styles.inputGroup}>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your name"
-            required
-          />
-        </div>
-
-        <div style={styles.inputGroup}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-
-        <div style={styles.inputGroup}>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <button type="submit" style={styles.button}>
-          Sign Up
-        </button>
-      </form>
-    </div>
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      minHeight="100vh"
+      bgcolor="background.default"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Card sx={{ width: 400, p: 3, borderRadius: 2, boxShadow: 3 }}>
+          <CardContent>
+            <Typography variant="h4" align="center" gutterBottom>
+              BullRun
+            </Typography>
+            <Typography variant="h5" align="center" gutterBottom>
+              Sign In
+            </Typography>
+            {error && (
+              <Typography color="error" align="center" sx={{ mb: 2 }}>
+                {error}
+              </Typography>
+            )}
+            <form onSubmit={handleSubmit}>
+              <TextField
+                fullWidth
+                label="Name"
+                type="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                margin="normal"
+                required
+              />
+              <TextField
+                fullWidth
+                label="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                margin="normal"
+                required
+              />
+              <TextField
+                fullWidth
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                margin="normal"
+                required
+              />
+              <TextField
+                fullWidth
+                label="Enter Password again"
+                type="password"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
+                placeholder="Enter your password"
+                margin="normal"
+                required
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </Box>
   );
 }
-
-// Basic inline styles as an example
-const styles = {
-  container: {
-    width: '400px',
-    margin: '50px auto',
-    fontFamily: 'Arial, sans-serif',
-    border: '1px solid #ccc',
-    padding: '2rem',
-    borderRadius: '8px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  inputGroup: {
-    marginBottom: '1rem',
-  },
-  button: {
-    backgroundColor: '#0284c7',
-    color: '#fff',
-    border: 'none',
-    padding: '10px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-};
-
-export default SignUp;
