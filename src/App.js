@@ -9,6 +9,8 @@ import SignUp from "./pages/SignUp";
 import Portfolio from "./pages/Portfolio";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "./AuthContext";
+import UserSetup from "./pages/UserSetup";
+import StockRecommendations from "./pages/StockRecommendations";
 
 const App = () => {
   return (
@@ -18,12 +20,15 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/setup" element={<UserSetup />} />
+          <Route path="/stocks" element={<StockRecommendations />} />
           
           {/* Protected Routes */}
           <Route path="/portfolio" element={<ProtectedRoute element={<Portfolio />} />} />
           <Route path="/leaderboard" element={<ProtectedRoute element={<Leaderboard />} />} />
           <Route path="/settings" element={<ProtectedRoute element={<Settings />} />} />
           <Route path="/swipe-learn" element={<ProtectedRoute element={<SwipeLearn />} />} />
+          {/* <Route path="/stocks" element={<ProtectedRoute element={<StockRecommendations />} />} /> */}
         </Routes>
       </Router>
     </AuthProvider>

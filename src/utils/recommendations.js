@@ -1,45 +1,69 @@
-// Calculate the Sharpe ratio for a stock.
-export function calculateSharpeRatio(expectedReturn, riskFreeRate, volatility) {
-    if (volatility === 0) return 0;
-    return (expectedReturn - riskFreeRate) / volatility;
-  }
-  
-  // Compute a composite score factoring in both the Sharpe ratio and beta.
-  export function calculateCompositeScore(stock, riskFreeRate, weights) {
-    const sharpe = calculateSharpeRatio(stock.expectedReturn, riskFreeRate, stock.volatility);
-    const betaScore = stock.beta ? 1 / stock.beta : 0;
-    return weights.sharpe * sharpe + weights.beta * betaScore;
-  }
-  
-  // Returns composite recommendations for a given set of stocks.
-  export function getCompositeRecommendations(stocks, riskFreeRate = 0.02, weights = { sharpe: 0.7, beta: 0.3 }) {
-    const scoredStocks = stocks.map(stock => {
-      const compositeScore = calculateCompositeScore(stock, riskFreeRate, weights);
-      return { ...stock, compositeScore };
-    });
-    return scoredStocks.sort((a, b) => b.compositeScore - a.compositeScore);
-  }
-  
-  // Selects weights based on the user's risk tolerance.
-  export function getWeightsForUser(riskTolerance) {
-    switch (riskTolerance) {
-      case 'low':
-        return { sharpe: 0.5, beta: 0.5 };
-      case 'medium':
-        return { sharpe: 0.7, beta: 0.3 };
-      case 'high':
-        return { sharpe: 0.9, beta: 0.1 };
-      default:
-        return { sharpe: 0.7, beta: 0.3 };
+function recommendStock(userPreferences, stock) {
+    // Initialize the score
+    let score = 0;
+
+    // Risk matching
+    if (userPreferences.risk === stock.risk) {
+        score += 0.3;
+    } else if (
+        (userPreferences.risk === 'low' && stock.risk === 'medium') ||
+        (userPreferences.risk === 'medium' && stock.risk === 'high') ||
+        (userPreferences.risk === 'high' && stock.risk === 'medium')
+    ) {
+        score += 0.2;
+    } else {
+        score += 0.1;
     }
-  }
-  
-  // Tailors recommendations based on user preferences.
-  export function getUserBasedRecommendations(user, stocks, riskFreeRate = 0.02) {
-    const weights = getWeightsForUser(user.riskTolerance);
-    let filteredStocks = stocks;
-    if (user.preferredSectors && user.preferredSectors.length > 0) {
-      filteredStocks = stocks.filter(stock => user.preferredSectors.includes(stock.sector));
+
+    // Sector matching
+    if (userPreferences.sector === stock.sector) {
+        score += 0.3;
+    } else {
+        score += 0.1;
     }
-    return getCompositeRecommendations(filteredStocks, riskFreeRate, weights);
-  }
+
+    // Timeframe matching (using volatility as a proxy)
+    if (userPreferences.timeframe === 'short' && stock.volatility === 'high') {
+        score += 0.2;
+    } else if (userPreferences.timeframe === 'long' && stock.volatility === 'low') {
+        score += 0.2;
+    } else {
+        score += 0.1;
+    }
+
+    // Market cap matching
+    if (userPreferences.marketCap === stock.marketCap) {
+        score += 0.2;
+    } else {
+        score += 0.1;
+    }
+
+    // Ensure the score is between 0 and 1
+    score = Math.min(Math.max(score, 0), 1);
+
+    return score;
+}
+
+// Example usage:
+const userPreferences = {
+    risk: 'medium',
+    sector: 'tech',
+    timeframe: 'long',
+    marketCap: 'large'
+};
+
+const stock = {
+    risk: 'medium',
+    sector: 'tech',
+    volatility: 'low',
+    marketCap: 'large'
+};
+
+const score = recommendStock(userPreferences, stock);
+console.log(`Stock Score: ${score}`);
+
+if (score >= 0.7) {
+    console.log('This stock is a positive recommendation!');
+} else {
+    console.log('This stock is not recommended.');
+}
