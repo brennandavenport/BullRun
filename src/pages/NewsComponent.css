@@ -9,10 +9,12 @@
     grid-template-columns: 300px 1fr;
     gap: 2rem;
     margin-bottom: 2rem;
-    background: white;
+    background: #373737;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 1.5rem;
+    padding: 20px;
+    width: 100%;
+    border-radius: 15px;
 }
 
 .news-image img {
@@ -33,17 +35,17 @@
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
-    color: #666;
+    color: #e9e9e9;
 }
 
 .news-title {
     font-size: 1.5rem;
     margin: 0;
-    color: #333;
+    color: #e7e7e7;
 }
 
 .news-description {
-    color: #444;
+    color: #dddddd;
     line-height: 1.6;
 }
 
@@ -74,7 +76,7 @@
 
 .highlight p {
     margin: 0.5rem 0;
-    color: #444;
+    color: #d6d6d6;
 }
 
 .highlight small {
@@ -106,4 +108,35 @@
 
 .news-sentiment-title{
     text-align: center;
+}
+
+.card-title {
+    background-color: #c4ff68;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
+  .news-asdfasdf {
+    background-color: #c4ff68;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    max-width: fit-content;
+    margin-left: 640px;
+    margin-right: auto;
+    
+  }
+
+  .news-wrapper {
+    margin-top: 80px;
 }

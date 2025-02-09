@@ -1,36 +1,28 @@
-import { Button, Box, Typography } from "@mui/material"; // or any other UI library
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import './style.css'
 
-function LandingPage() {
-  const navigate = useNavigate();
 
-  const handleSignInClick = () => {
-    // Navigate to the SignIn page
-    navigate("/signin");
-  };
-
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      minHeight="100vh"
-      bgcolor="background.default"
-    >
-      <Typography variant="h3" gutterBottom>
-        Welcome to BullRun
-      </Typography>
-      <Button
-        variant="contained"
-        size="large"
-        onClick={handleSignInClick}
-        sx={{ mt: 3 }}
-      >
-        Sign In
-      </Button>
-    </Box>
-  );
+const Landing = () => {
+    return( 
+        <div>
+            <div class="grid-background"></div>
+            <nav class="navbar">
+                <a href="#" class="logo">BullRun</a>
+                <div class="nav-links">
+                    <a href="#swipe">Swipe</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#leaderboard">Leaderboard</a>
+                    <a href="#settings">Settings</a>
+                </div>
+                <a href="#" class="button">Sign Up/Log In</a>
+            </nav>
+            <section class="hero">
+                <h1>Compete Against your Friends <br/> to Build the Best Portfolio</h1>
+                <p>Start Swiping to Build Generational Wealth</p>
+                <a href="#" class="button">Build Portfolio</a>
+            </section>
+        </div>
+    )
 }
 
 export default LandingPage;

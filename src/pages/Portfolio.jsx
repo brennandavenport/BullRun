@@ -6,6 +6,7 @@ import PortfolioPieChart from "./PortfolioPieChart";
 import StockChart from "./StockChart";
 
 const Portfolio = () => {
+<<<<<<< HEAD
   const [chartData, setChartData] = useState({ labels: [], values: [] });
   const [pieChartData, setPieChartData] = useState({ labels: [], values: [] });
 
@@ -61,8 +62,37 @@ const Portfolio = () => {
           <NewsComponent></NewsComponent>
         </div>
       </div>
+=======
+return (
+<div>
+<div class="grid-background"></div>
+  <div class="portfolio-container">
+    <NavBar></NavBar>
+    <div class="portfolio-card">
+      <span class="card-title">Performance - Past Month</span>
+        <div class="graph-placeholder">
+          <StockChart data = {sampleData} ></StockChart>
+        </div>
+>>>>>>> richard
     </div>
+        <div class="portfolio-card">
+        <span class="card-title">Total Holdings</span>
+            <PortfolioPieChart></PortfolioPieChart>
+
+        </div>
+  </div>
+  <div className="new">
+
+  <NewsComponent></NewsComponent>
+  </div>
+</div>
   );
 };
 
+<<<<<<< HEAD
 export default Portfolio;
+=======
+
+
+export default Portfolio;
+>>>>>>> richard
