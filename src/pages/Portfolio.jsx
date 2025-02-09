@@ -5,8 +5,12 @@ import NavBar from "./NavBar";
 import PortfolioPieChart from "./PortfolioPieChart";
 import StockChart from "./StockChart";
 
+
+
+
+
 const Portfolio = () => {
-<<<<<<< HEAD
+
   const [chartData, setChartData] = useState({ labels: [], values: [] });
   const [pieChartData, setPieChartData] = useState({ labels: [], values: [] });
 
@@ -46,23 +50,9 @@ const Portfolio = () => {
     fetchPortfolioValue();
   }, []);
 
-  return (
-    <div className="portfolio-container">
-      <NavBar></NavBar>
-      <div className="content">
-        <div className="charts">
-          <div className="stock-chart" data-title="Performance - Past Month">
-            <StockChart data={chartData}></StockChart>
-          </div>
-          <div className="pie-chart" data-title="Total Holdings">
-            <PortfolioPieChart data={pieChartData}></PortfolioPieChart>
-          </div>
-        </div>
-        <div className="news">
-          <NewsComponent></NewsComponent>
-        </div>
-      </div>
-=======
+
+
+
 return (
 <div>
 <div class="grid-background"></div>
@@ -71,9 +61,8 @@ return (
     <div class="portfolio-card">
       <span class="card-title">Performance - Past Month</span>
         <div class="graph-placeholder">
-          <StockChart data = {sampleData} ></StockChart>
+          <StockChart data = {chartData} ></StockChart>
         </div>
->>>>>>> richard
     </div>
         <div class="portfolio-card">
         <span class="card-title">Total Holdings</span>
@@ -89,10 +78,4 @@ return (
   );
 };
 
-<<<<<<< HEAD
 export default Portfolio;
-=======
-
-
-export default Portfolio;
->>>>>>> richard

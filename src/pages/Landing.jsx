@@ -2,7 +2,7 @@ import React from "react"
 import './style.css'
 
 
-const Landing = () => {
+const LandingPage = () => {
     return( 
         <div>
             <div class="grid-background"></div>
