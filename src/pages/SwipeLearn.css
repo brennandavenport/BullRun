@@ -1,8 +1,16 @@
 .page-content {
-    border: 1px solid pink;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     height: 75vh;
-    width: 45vh;
+    width: 150vh;
     text-align: center;
+}
+
+.chat-bot {
+    margin-left: 250px;
+    width: 100vh;
+    color: black;
 }
 
 .body {

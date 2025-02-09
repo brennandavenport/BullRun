@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import NavBar from "./NavBar";
 import InfoCardCarousel from "./InfoCardCarousel";
+import Chat from './Chat'
 import './SwipeLearn.css'
 
 
@@ -30,12 +31,17 @@ const SwipeLearn = () => {
             <NavBar></NavBar>
             <div className="body">
                 <div className="page-content">
-                    <h1>Swipe Learn Page</h1>
-                    <InfoCardCarousel companyIndex = {currentIndex}></InfoCardCarousel>
-                    <div className="buttons">
-                        <button className="dislike" onClick={ nextItem }>❌</button>
-                        <button className="superlike" onClick={ nextItem }>⭐</button>
-                        <button className="like" onClick={ nextItem }>💚</button>
+                    <div className="tinder">
+                        <h1>Swipe Learn Page</h1>
+                        <InfoCardCarousel companyIndex = {currentIndex}></InfoCardCarousel>
+                        <div className="buttons">
+                            <button className="dislike" onClick={ nextItem }>❌</button>
+                            <button className="superlike" onClick={ nextItem }>⭐</button>
+                            <button className="like" onClick={ nextItem }>💚</button>
+                        </div>
+                    </div>
+                    <div className="chat-bot">
+                        <Chat></Chat>
                     </div>
                 </div>
             </div>
