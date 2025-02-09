@@ -61,47 +61,6 @@ body {
 
 
 
-/*CSS FOR LEADERBOARD*/
-.leaderboard {
-    width: 90%;
-    max-width: 600px;
-    margin: 50px auto;
-}
-.player {
-    background-color: #1c1f1f;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-.player .info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.rank {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #ccc;
-}
-.name {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-.roi {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-.positive {
-    color: #4CAF50;
-}
-.negative {
-    color: #FF5252;
-}
-
 /*CSS FOR SWIPE*/
 .swipe-container {
     display: flex;

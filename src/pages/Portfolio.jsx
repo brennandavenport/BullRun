@@ -58,13 +58,13 @@ return (
 <div class="grid-background"></div>
   <div class="portfolio-container">
     <NavBar></NavBar>
-    <div class="portfolio-card">
+    <div id="chart" class="portfolio-card">
       <span class="card-title">Performance - Past Month</span>
         <div class="graph-placeholder">
           <StockChart data = {chartData} ></StockChart>
         </div>
     </div>
-        <div class="portfolio-card">
+        <div id="pie-chart" class="portfolio-card">
         <span class="card-title">Total Holdings</span>
             <PortfolioPieChart></PortfolioPieChart>
 
