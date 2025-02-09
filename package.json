@@ -7,7 +7,9 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.3",
+    "@react-spring/web": "^9.7.5",
     "@shadcn/ui": "^0.0.4",
+    "@use-gesture/react": "^10.3.1",
     "chart.js": "^4.4.7",
     "chartjs-adapter-date-fns": "^3.0.0",
     "class-variance-authority": "^0.7.1",
@@ -21,6 +23,7 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1",
+    "react-tinder-card": "^1.6.4",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "web-vitals": "^4.2.4"

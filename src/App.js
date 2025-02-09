@@ -3,13 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Leaderboard from "./pages/Leaderboard";
 import Settings from "./pages/Settings";
-import SwipeLearn from "./pages/Swipe-Learn";
+import SwipeLearn from "./pages/SwipeLearn";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Portfolio from "./pages/Portfolio";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "./AuthContext";
-import UserSetup from "./pages/UserSetup";
 
 const App = () => {
   return (
@@ -19,7 +18,6 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/setup" element={<UserSetup />} />
           
           {/* Protected Routes */}
           <Route path="/portfolio" element={<ProtectedRoute element={<Portfolio />} />} />

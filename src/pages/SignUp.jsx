@@ -50,7 +50,7 @@ export default function SignUp() {
         localStorage.setItem("user", data.data.id); // Correctly access the user ID
 
         // Redirect to the home page or dashboard
-        navigate("/");
+        navigate("/portfolio");
       } else {
         // Handle errors from the backend
         setError(data.detail || "Invalid credentials, try again");

@@ -22,7 +22,7 @@ const NavBar = () => {
                 <a href="/settings">Settings</a>
                 </div>
                 <div className="sign-out">
-                <a href="/sign-out">Sign out</a>
+                <a href="/">Sign out</a>
                 </div>
             </div>
             <div className="content"></div>
